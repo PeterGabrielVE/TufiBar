@@ -92,21 +92,21 @@ class AppServiceProvider extends ServiceProvider
                     ['title'=>'Money conversion', 'help'=>'Some currencies need this field to be unselected. By default it should be selected', 'key'=>'DO_CONVERTION', 'value'=>'true', 'ftype'=>'bool'],
                     ['title'=>'Time format', 'key'=>'TIME_FORMAT', 'value'=>'AM/PM', 'ftype'=>'select', 'data'=>['AM/PM'=>'AM/PM', '24hours '=>'24 Hours']],
                     ['title'=>'Date and time display', 'key'=>'DATETIME_DISPLAY_FORMAT', 'value'=>'d M Y h:i A'],
-    
+
                 ],
             ]]);
 
             //Setup subscribe methods
             $subscriptionsModules=[];
             $subscriptionsModules["Stripe"]="Stripe"; // Stripe is default
-            $subscriptionsModules["Local"]="Local bank transfers"; // Stripe is default
+            $subscriptionsModules["Local"]="Pago por Suscripción";  // Stripe is default
 
             foreach (Module::all() as $key => $module) {
                 if($module->get('isSubscriptionModule')){
                     $subscriptionsModules[$module->get('name')]=$module->get('name');
                 }
             }
-            config(['config.env.1.fields.0.data' => $subscriptionsModules]); 
+            config(['config.env.1.fields.0.data' => $subscriptionsModules]);
         } catch (\Exception $e) {
             //return redirect()->route('LaravelInstaller::welcome');
         }
