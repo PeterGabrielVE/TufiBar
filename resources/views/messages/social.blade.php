@@ -16,11 +16,11 @@
 ---------
 <?php
 foreach ($order->items()->get() as $key => $item) {
-    $lineprice = $item->pivot->qty.' X '.$item->name." - ".money($item->pivot->qty * $item->pivot->variant_price, config('settings.cashier_currency'), true);
+    $lineprice = $item->pivot->qty.' X '.$item->name." - ".money($item->pivot->variant_price, config('settings.cashier_currency'), true);
     if(strlen($item->pivot->variant_name)>3){
         $lineprice .=$nl.$tabSpace.__('Variant:')." ".$item->pivot->variant_name;
     }
-   
+
     if(strlen($item->pivot->extras)>3){
         foreach (json_decode($item->pivot->extras) as $key => $extra) {
             $lineprice .=$nl.$tabSpace.$extra;
@@ -33,12 +33,12 @@ foreach ($order->items()->get() as $key => $item) {
 }
 ?>
 ---------
-🧾 {{__('Total: ').money($order->order_price, config('settings.cashier_currency'), config('settings.do_convertion')) }}
+🧾 {{__('Total: ').money($order->order_price, config('settings.cashier_currency'),true) }}
 ---------
 
-@if (strlen($order->comment)>0)   
+@if (strlen($order->comment)>0)
 🗒 {{ __('Comment') }}
-{{ $order->comment }}  
+{{ $order->comment }}
 @endif
 
 <?php  //Deliver / Pickup details ?>
@@ -69,7 +69,7 @@ foreach ($order->items()->get() as $key => $item) {
 
 
 <?php //Add payment only in whatsapp ordering mode ?>
-@if(config('settings.is_whatsapp_ordering_mode'))   
+@if(config('settings.is_whatsapp_ordering_mode'))
 <?php //Payment ?>
 💳 {{ __('Payment Options') }}
 {{ $order->restorant->payment_info }}
