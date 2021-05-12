@@ -7,9 +7,9 @@
             <div class="card cardWithShadow cardWithShadowAnimated">
               <div class="card-body">
                 <div class="imgHolderInCard">
-                  <img 
-                    class="image-in-card" 
-                    src='{{ str_contains($feature->image, "social") ? $feature->image : "/uploads/restorants/".$feature->image."_large.jpg" }}' 
+                  <img
+                    class="image-in-card"
+                    src='{{ str_contains($feature->image, "social") ? $feature->image : "public/".$feature->image."" }}'
                   />
                 </div>
                 <h5 class="card-title">{{ $feature->title }}</h5>
