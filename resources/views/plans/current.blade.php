@@ -35,7 +35,7 @@
                                 <h3 class="mb-0">{{ $plan['name'] }}</h3>
                             </div>
                             <div class="col-4">
-                                <h3 class="mb-0">@money($plan['price'], config('settings.cashier_currency'),config('settings.do_convertion'))/{{ $plan['period']==1?__('m'):__('y') }}</h3>
+                                <h3 class="mb-0">@money($plan['price'], config('settings.cashier_currency'),true)/{{ $plan['period']==1?__('m'):__('y') }}</h3>
                             </div>
 
                         </div>
@@ -70,8 +70,8 @@
                         <!-- Button holder -->
                         <div id="button-container-plan-{{$plan['id']}}"></div>
 
-                            
-                            
+
+
                             @if(strlen($plan['stripe_id'])>2&&config('settings.subscription_processor')=='Stripe')
                                 <a href="javascript:showStripeCheckout({{ $plan['id'] }} , '{{ $plan['name'] }}')" class="btn btn-primary">{{__('Switch to ').$plan['name']}}</a>
                             @endif
@@ -95,7 +95,7 @@
                                         {{ config('settings.local_transfer_account')}}
                                         <hr /><br />
                                         {{ __('Plan price ')}}<br />
-                                        @money($plan['price'], config('settings.cashier_currency'),config('settings.do_convertion'))/{{ $plan['period']==1?__('m'):__('y') }}
+                                        @money($plan['price'], config('settings.cashier_currency'),true)/{{ $plan['period']==1?__('m'):__('y') }}
                                         </div>
                                         <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('Close') }}</button>
@@ -107,7 +107,7 @@
 
                             <!-- END TO BE REMOVED -->
 
-                            
+
                         @endif
                     </div>
                 </div>
@@ -204,7 +204,7 @@
                             @include($subscription_processor.'-subscribe::actions')
                         @endif
 
-                        
+
                     </div>
 
                 </div>
@@ -230,12 +230,12 @@
     function showLocalPayment(plan_name,plan_id){
         alert(plan_name);
     }
-    
+
     var plans = <?php echo json_encode($plans) ?>;
     var user = <?php echo json_encode(auth()->user()) ?>;
     var payment_processor = <?php echo json_encode(config('settings.subscription_processor')) ?>;
 
-    
+
 </script>
 
 @if (config('settings.subscription_processor') == "Stripe")
@@ -260,7 +260,7 @@
    $('#stripe-payment-form-holder').show();
   }
 </script>
-@else 
+@else
     @if (!(config('settings.subscription_processor') == "Local"))
         <!-- Payment Processors JS Modules -->
         @include($subscription_processor.'-subscribe::subscribe')
