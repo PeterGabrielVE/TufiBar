@@ -86,17 +86,17 @@ class SettingsController extends Controller
                 $valueToStore="";
                 if($object){
                     if($valueField=="name"){
-                        $valueToStore=$item->name; 
+                        $valueToStore=$item->name;
                     }else if($valueField=="description"){
                         $valueToStore=$item->description;
                     }
-                    
+
                     if(is_numeric($valueToStore)){
                         $valueToStore=$valueToStore.".";
                     }
                     $object->setTranslation($valueField, $locale, $valueToStore)->save();
                 }
-                
+
             }
         }
     }
@@ -152,7 +152,7 @@ class SettingsController extends Controller
             if($module->get('global_fields')){
                 $extraFields=array_merge($extraFields,$module->get('global_fields'));
             }
-            
+
         }
         $envConfigs['3']['fields']=array_merge($extraFields,$envConfigs['3']['fields']);
 
@@ -206,12 +206,12 @@ class SettingsController extends Controller
             }
             $okMemory=true;
             if($memory_limit==-1||$memory_limit >= 512 * 1024 * 1024){
-               
+
             }else{
                 //Alert
                 $okMemory=false;
             }
-            
+
 
 
             $updater = new \Codedge\Updater\UpdaterManager(app());
@@ -220,18 +220,18 @@ class SettingsController extends Controller
             if(isset($_GET['do_update'])){
                 if($updater->source()->isNewVersionAvailable()) {
 
-            
+
                     // Get the new version available
                     $versionAvailable = $updater->source()->getVersionAvailable();
-            
+
                     // Create a release
                     $release = $updater->source()->fetch($versionAvailable);
-            
+
                     // Run the update process
                     $updater->source()->update($release);
 
                     return redirect()->route('settings.cloudupdate')->withStatus(__('Successfully updated to version v').$versionAvailable);
-                    
+
                 } else {
                     return redirect()->route('settings.cloudupdate')->withStatus(__('There is nothing to update!'));
                 }
@@ -244,7 +244,7 @@ class SettingsController extends Controller
             if($newVersionAvailable){
                 $newVersion=$updater->source()->getVersionAvailable();
             }
-            
+
             $theChangeLog="";
             if(config('settings.enalbe_change_log_in_update')){
                 $ftChange="https://raw.githubusercontent.com/dimovdaniel/foodtigerdocs/master/changelog/changelog.md        ";
@@ -263,9 +263,9 @@ class SettingsController extends Controller
                 $theChangeLog=str_replace('%}','></iframe>',$theChangeLog);
                 $theChangeLog=str_replace('\\','',$theChangeLog);
             }
-           
-        
-            
+
+
+
             return view('settings.cloudupdate', [
                 'newVersionAvailable'=>$newVersionAvailable,
                 'newVersion'=>$newVersion,
@@ -405,6 +405,7 @@ class SettingsController extends Controller
      */
     public function update(Request $request, $id)
     {
+        //dd($request->all());
         if (config('settings.is_demo') | config('settings.is_demo')) {
             //Demo, don;t allow
             return redirect()->route('settings.index')->withStatus(__('Settings not allowed to be updated in DEMO mode!'));
@@ -436,8 +437,9 @@ class SettingsController extends Controller
         $settings->mobile_info_subtitle = strip_tags($request->mobile_info_subtitle) ? strip_tags($request->mobile_info_subtitle) : '';
         $settings->delivery = (float) $request->delivery;
         $settings->order_fields=$request->order_fields;
+        $settings->link_suscripcion=$request->env['LINK_SUSCRIPCION'];
         $settings->update();
-        
+
         //$settings->order_options = $request->order_options;
 
         fwrite(fopen(__DIR__.'/../../../public/byadmin/front.js', 'w'), str_replace('tagscript', 'script', $request->jsfront));
@@ -504,9 +506,9 @@ class SettingsController extends Controller
 
         if ($request->hasFile('wphomehero')) {
             $wpDemo = Image::make($request->wphomehero->getRealPath());
-            $wpDemo->save(public_path().'/social/img/wpordering.svg'); 
+            $wpDemo->save(public_path().'/social/img/wpordering.svg');
         }
-        
+
         $images = [
             public_path().'/impactfront/img/flayer.png',
             public_path().'/impactfront/img/menubuilder.jpg',
@@ -587,12 +589,12 @@ class SettingsController extends Controller
 
         $currentEnvLanguage = isset(config('config.env')[2]['fields'][0]['data'][config('app.locale')]) ? config('config.env')[2]['fields'][0]['data'][config('app.locale')] : 'UNKNOWN';
 
-        
+
         return view('landing.index', [
             'sections' => $sections,
             'availableLanguages'=> $availableLanguages,
             'currentLanguage'=>$currentEnvLanguage
             ]);
     }
-    
+
 }
