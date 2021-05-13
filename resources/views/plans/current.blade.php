@@ -94,8 +94,12 @@
                                         <br /><br />
                                         {{ config('settings.local_transfer_account')}}
                                         <hr /><br />
+
+                                        <a onclick="redireccion()" class="btn btn-warning">{{ __('Suscripci贸n') }}</a>
+                                         <hr /><br />
                                         {{ __('Plan price ')}}<br />
                                         @money($plan['price'], config('settings.cashier_currency'),true)/{{ $plan['period']==1?__('m'):__('y') }}
+
                                         </div>
                                         <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('Close') }}</button>
@@ -212,7 +216,7 @@
             </div>
         @endif
 
-
+         <input  id="link_suscripcion" type="hidden" value="{{ $setting->link_suscripcion ?? null }}">
         @include('layouts.footers.auth')
     </div>
 @endsection
@@ -220,6 +224,16 @@
 
 
 <script type="text/javascript">
+
+    function redireccion(){
+       let link = $('#link_suscripcion').val();
+       console.log(link);
+       let url = link;
+       url = url.replace('link', link);
+       window.open('https://'+link, '_blank');
+    }
+
+
     $(".btn-sub-actions").click(function() {
         var action = $(this).attr('data-action');
 
