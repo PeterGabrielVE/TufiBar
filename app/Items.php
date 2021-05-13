@@ -64,7 +64,7 @@ class Items extends TranslateAwareModel
 
     public function getItempriceAttribute()
     {
-        return  Money($this->price, config('settings.cashier_currency'), config('settings.do_convertion'))->format();
+        return  Money($this->price, config('settings.cashier_currency'),true)->format();
     }
 
     public function getShortDescriptionAttribute()
