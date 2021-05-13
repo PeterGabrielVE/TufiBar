@@ -16,7 +16,7 @@ return [
                 ['title'=>'Enable guest log', 'key'=>'ENABLE_GUEST_LOG', 'value'=>'true', 'ftype'=>'bool', 'onlyin'=>'qrsaas'],
                 ['title'=>'Hide project branding on menu page', 'key'=>'HIDE_PROJECT_BRANDING', 'value'=>'true', 'ftype'=>'bool', 'onlyin'=>'qrsaas'],
                 ['title'=>'Disable the landing page', 'help'=>'When landing page is disabled, the project will start from the login page. In this case it is best to have the system in subdomain', 'key'=>'DISABLE_LANDING', 'value'=>'false', 'ftype'=>'bool', 'onlyin'=>'qrsaas'],
-                
+
                 ['separator'=>'Ordering and items', 'title'=>'Completely disable ordering', 'key'=>'QRSAAS_DISABLE_ODERING', 'value'=>'false', 'ftype'=>'bool', 'onlyin'=>'qrsaas', 'help'=>'If this is selected, then cart, and orders will not be shown'],
                 ['title'=>'Directly approve order', 'help'=>'When selected admin does not have to approve order', 'key'=>'APP_ORDER_APPROVE_DIRECTLY', 'value'=>'false', 'ftype'=>'bool', 'onlyin'=>'ft'],
                 ['title'=>'Assign orders to drivers automatically', 'key'=>'ALLOW_AUTOMATED_ASSIGN_TO_DRIVER', 'value'=>'true', 'ftype'=>'bool', 'onlyin'=>'ft'],
@@ -35,7 +35,7 @@ return [
                 ['title'=>'Enable import via CSV for restaurant items', 'key'=>'ENABLE_IMPORT_CSV', 'value'=>'false', 'ftype'=>'bool'],
 
                 ['title'=>'Enable WhatsApp ordering', 'key'=>'IS_WHATSAPP_ORDERING_MODE', 'value'=>'false', 'type'=>'hidden', 'onlyin'=>'qrsaas'],
-                
+
                 ['separator'=>'Delivery costs', 'title'=>'Enable cost per distance', 'key'=>'ENABLE_COST_PER_DISTANCE', 'value'=>'false', 'ftype'=>'bool', 'onlyin'=>'ft'],
                 ['title'=>'Cost per kilometer', 'key'=>'COST_PER_KILOMETER', 'value'=>'1', 'onlyin'=>'ft'],
                 ['title'=>'Enable cost based on range', 'help'=>'If you have enable cost based on range, the delivery cost will be calculated based on what range the distance for delivery is in', 'key'=>'ENABLE_COST_IN_RANGE', 'value'=>'false', 'ftype'=>'bool', 'onlyin'=>'ft'],
@@ -73,10 +73,10 @@ return [
                 ['title'=>'Debug app level', 'type'=>'hidden', 'key'=>'APP_LOG_LEVEL', 'value'=>'debug', 'data'=>['debug'=>'Debug', 'error'=>'Error']],
                 ['separator'=>'Links', 'title'=>'Link to terms and services', 'key'=>'LINK_TO_TS', 'value'=>"/blog/terms-and-conditions"],
                 [ 'title'=>'Link to privacy policy', 'key'=>'LINK_TO_PR', 'value'=>"/blog/how-it-works"],
-            
+
                 ['separator'=>"Custom fields on order", 'title'=>'Label on the custom fields', 'key'=>'LABEL_ON_CUSTOM_FIELDS', 'value'=>"Customer Info"]
-                
-            
+
+
             ],
         ],
 
@@ -99,7 +99,8 @@ return [
 
                 ['separator'=>'Local bank transfer', 'title'=>'Local bank transfer explanation', 'key'=>'LOCAL_TRANSFER_INFO', 'value'=>'Wire us the plan amout on the following bank accoun. And inform us about the wire.', 'onlyin'=>'qrsaas'],
                 ['title'=>'Bank Account', 'key'=>'LOCAL_TRANSFER_ACCOUNT', 'value'=>'IBAN: 12112121212121', 'onlyin'=>'qrsaas'],
-                
+                ['title'=>'Subscription Link', 'key'=>'LINK_SUSCRIPCION', 'value'=>'Ingrese link', 'onlyin'=>'qrsaas'],
+
                 ],
         ],
         [],
@@ -109,7 +110,7 @@ return [
             'icon'=>'ni ni-spaceship',
             'fields'=>[
 
-                
+
                 ['separator'=>'WhatsApp ordering', 'title'=>'Enable WhatsApp order submit', 'help'=>'When activated, if owner has entered his whatsapp phone  a send to whatsapp order will be shown on order completed page. Order will be sent to owner whatsapp phone', 'key'=>'WHATSAPP_ORDERING_ENABLED', 'value'=>'true', 'ftype'=>'bool', 'onlyin'=>'qrsaas'],
                 ['separator'=>'WhatsApp ordering','title'=>'Enable WhatsApp order submit', 'help'=>'When activated, a send to whatsapp order will be shown on order completed page. Order will be sent to admin whatsapp phone', 'key'=>'WHATSAPP_ORDERING_ENABLED', 'value'=>'true', 'ftype'=>'bool', 'onlyin'=>'ft'],
 
@@ -139,7 +140,7 @@ return [
 
                 ['separator'=>'Cookies','title'=>'Cookie Consent', 'key'=>'ENABLE_DEFAULT_COOKIE_CONSENT', 'value'=>'true', 'ftype'=>'bool', 'help'=>'Cookie consent popup - you can import other via js'],
 
-                
+
 
                 ['separator'=>'Share this', 'title'=>'Share this property id', 'help'=>'You can find this number in Share this import link', 'key'=>'SHARE_THIS_PROPERTY', 'value'=>''],
                 ['separator'=>'Futy', 'title'=>'Futy key', 'key'=>'FUTY_KEY', 'value'=>''],

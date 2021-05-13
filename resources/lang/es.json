@@ -691,5 +691,6 @@
     "settings.paddle_error": "Parece que no has configurado tu remo. Paddle.com se utiliza para suscripciones y pagos. Siga los documentos y agregue sus credenciales de paleta en la configuración",
     "settings.stripe": "Stripe",
     "settings.stripe_error": "Parece que no ha configurado su banda. Stripe se utiliza para suscripciones y pagos. Siga los documentos y agregue sus credenciales de banda en la configuración",
-    "settings.site_run_into_smtp_error": "Desafortunadamente, el sistema se encuentra con un error smtp. Si es administrador, inicie sesión y verifique el estado del sistema."
+    "settings.site_run_into_smtp_error": "Desafortunadamente, el sistema se encuentra con un error smtp. Si es administrador, inicie sesión y verifique el estado del sistema.",
+    "Subscription Link": "Link de Suscripción"
 }
