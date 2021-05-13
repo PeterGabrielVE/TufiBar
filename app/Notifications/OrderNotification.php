@@ -160,17 +160,17 @@ class OrderNotification extends Notification
         $message->line(__('Order items'));
         $message->line(__('________________'));
         foreach ($this->order->items as $key => $item) {
-            $lineprice = $item->pivot->qty.' X '.$item->name.$item->pivot->variant_name.' ( '.money($item->pivot->variant_price, config('settings.cashier_currency'), config('settings.do_convertion')).' ) = '.money($item->pivot->qty * $item->pivot->variant_price, config('settings.cashier_currency'), true);
+            $lineprice = $item->pivot->qty.' X '.$item->name.$item->pivot->variant_name.' ( '.money($item->pivot->variant_price, config('settings.cashier_currency'), true).' ) = '.money($item->pivot->qty * $item->pivot->variant_price, config('settings.cashier_currency'), true);
             $message->line($lineprice);
         }
         $message->line(__('________________'));
-        $message->line(__('Sub Total').': '.money($this->order->order_price, config('settings.cashier_currency'), config('settings.do_convertion')));
+        $message->line(__('Sub Total').': '.money($this->order->order_price, config('settings.cashier_currency'), true));
 
         if ($this->order->delivery_method && $this->order->delivery_method.'' == '1') {
-            $message->line(__('Delivery').': '.money($this->order->delivery_price, config('settings.cashier_currency'), config('settings.do_convertion')));
+            $message->line(__('Delivery').': '.money($this->order->delivery_price, config('settings.cashier_currency'), true));
         }
 
-        $message->line(__('Total').': '.money($this->order->order_price+$this->order->delivery_price, config('settings.cashier_currency'), config('settings.do_convertion')));
+        $message->line(__('Total').': '.money($this->order->order_price+$this->order->delivery_price, config('settings.cashier_currency'), true));
 
         return $message;
     }

@@ -14,7 +14,7 @@ class PaymentController extends Controller
 {
     public function view(Request $request)
     {
-        $total = Money(Cart::getSubTotal(), config('settings.cashier_currency'), config('settings.do_convertion'))->format();
+        $total = Money(Cart::getSubTotal(), config('settings.cashier_currency'), true)->format();
 
         //Clear cart
         Cart::clear();
@@ -35,5 +35,5 @@ class PaymentController extends Controller
         }
     }
 
-    
+
 }

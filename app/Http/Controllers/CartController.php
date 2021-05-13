@@ -27,7 +27,7 @@ class CartController extends Controller
 
         $restaurant = Restorant::findOrFail($restID);
         \App\Services\ConfChanger::switchCurrency($restaurant);
-        
+
 
         //Check if added item is from the same restorant as previus items in cart
         $canAdd = false;
@@ -76,7 +76,7 @@ class CartController extends Controller
                 $theElement .= $value.' -- '.$item->extras()->findOrFail($value)->name.'  --> '.$cartItemPrice.' ->- ';
             }
 
-            Cart::add((new \DateTime())->getTimestamp(), $cartItemName, $cartItemPrice, $request->quantity, ['id'=>$item->id, 'variant'=>$request->variantID, 'extras'=>$request->extras, 'restorant_id'=>$restID, 'image'=>$item->icon, 'friendly_price'=>  Money($cartItemPrice, config('settings.cashier_currency'), config('settings.do_convertion'))->format()]);
+            Cart::add((new \DateTime())->getTimestamp(), $cartItemName, $cartItemPrice, $request->quantity, ['id'=>$item->id, 'variant'=>$request->variantID, 'extras'=>$request->extras, 'restorant_id'=>$restID, 'image'=>$item->icon, 'friendly_price'=>  Money($cartItemPrice, config('settings.cashier_currency'), true)->format()]);
 
             return response()->json([
                 'status' => true,
@@ -104,13 +104,13 @@ class CartController extends Controller
 
     public function cart()
     {
-         
-        
+
+
 
 
         $fieldsToRender=[];
         if(strlen(config('global.order_fields'))>10){
-            $fieldsToRender=$this->convertJSONToFields(json_decode(config('global.order_fields'),true)); 
+            $fieldsToRender=$this->convertJSONToFields(json_decode(config('global.order_fields'),true));
         }
         $isEmpty = false;
         if (Cart::getContent()->isEmpty()) {
@@ -126,7 +126,7 @@ class CartController extends Controller
                 break;
             }
 
-            
+
 
             //The restaurant
             $restaurant = Restorant::findOrFail($restorantID);
@@ -134,12 +134,12 @@ class CartController extends Controller
             //Set config based on restaurant
             config(['app.timezone' => $restaurant->getConfig('time_zone',config('app.timezone'))]);
 
-            
+
 
             $enablePayments=true;
             if(config('app.isqrsaas')){
                 if($restaurant->currency!=""&&$restaurant->currency!=config('settings.cashier_currency')){
-                    //$enablePayments=false; -- DO this check only when money goes to admin 
+                    //$enablePayments=false; -- DO this check only when money goes to admin
                 }
             }
 
@@ -149,7 +149,7 @@ class CartController extends Controller
             //Create all the time slots
             $timeSlots = $this->getTimieSlots($restaurant);
 
-           
+
             //user addresses
             $addresses = [];
             if (config('app.isft')) {
@@ -169,13 +169,13 @@ class CartController extends Controller
                     array_push($extraPayments,$module->get('alias'));
                 }
             }
-  
+
             $businessHours=$restaurant->getBusinessHours();
             $now = new \DateTime('now');
 
             $formatter = new \IntlDateFormatter(config('app.locale'), \IntlDateFormatter::SHORT, \IntlDateFormatter::SHORT);
             $formatter->setPattern(config('settings.datetime_workinghours_display_format_new'));
-        
+
 
             $params = [
                 'enablePayments'=>$enablePayments,
@@ -202,7 +202,7 @@ class CartController extends Controller
                 if(count($previousOrderArray) > 0){
                     foreach($previousOrderArray as $orderId){
                         $restorant = Order::where(['id'=>$orderId])->get()->first()->restorant;
-                       
+
                         $restorantInfo = $this->getRestaurantInfo($restorant, $previousOrderArray);
 
                         return view('restorants.show', [
@@ -219,7 +219,7 @@ class CartController extends Controller
                     }
                 }else{
                     return redirect()->route('front')->withError('Your cart is empty!');
-                }                
+                }
             }
         }
     }

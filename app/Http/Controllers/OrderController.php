@@ -64,7 +64,7 @@ class OrderController extends Controller
             $orders = $orders->where(['driver_id'=>auth()->user()->id]);
         //Get owner's restorant orders
         } elseif (auth()->user()->hasRole('owner')) {
-             
+
             //Change currency
             ConfChanger::switchCurrency(auth()->user()->restorant);
 
@@ -161,7 +161,7 @@ class OrderController extends Controller
     {
     }
 
-    
+
 
     private function toMobileLike(Request $request){
         /*{
@@ -221,7 +221,7 @@ class OrderController extends Controller
         //DELIVERY METHOD
         //Default - pickup - since available everywhere
         $delivery_method="pickup";
-        
+
         //Delivery method - deliveryType - ft
         if($request->has('deliveryType')){
             $delivery_method=$request->deliveryType;
@@ -251,7 +251,7 @@ class OrderController extends Controller
             $table_id=$request->table_id;
         }
 
-         //Phone 
+         //Phone
          $phone=null;
          if($request->has('phone')){
              $phone=$request->phone;
@@ -272,7 +272,7 @@ class OrderController extends Controller
             "customFields"=>$customFields
         ];
 
-        
+
 
         return new Request($requestData);
     }
@@ -291,7 +291,7 @@ class OrderController extends Controller
         $vendorHasOwnPayment=null;
         if(config('settings.social_mode')){
             //Find the vendor, and check if he has payment
-        
+
             $vendor=Restorant::findOrFail($mobileLikeRequest->vendor_id);
 
             //Payment methods
@@ -313,16 +313,16 @@ class OrderController extends Controller
 
         //Proceed with validating the data
         $validator=$orderRepo->validateData();
-        if ($validator->fails()) { 
+        if ($validator->fails()) {
             notify()->error($validator->errors()->first());
-            return $orderRepo->redirectOrInform(); 
+            return $orderRepo->redirectOrInform();
         }
 
         //Proceed with making the order
         $validatorOnMaking=$orderRepo->makeOrder();
-        if ($validatorOnMaking->fails()) { 
-            notify()->error($validatorOnMaking->errors()->first()); 
-            return $orderRepo->redirectOrInform(); 
+        if ($validatorOnMaking->fails()) {
+            notify()->error($validatorOnMaking->errors()->first());
+            return $orderRepo->redirectOrInform();
         }
 
         return $orderRepo->redirectOrInform();
@@ -376,7 +376,7 @@ class OrderController extends Controller
                 'order'=>$order,
                 'pdFInvoice'=>$pdFInvoice,
                 'custom_data'=>$order->getAllConfigs(),
-                'statuses'=>Status::pluck('name', 'id'), 
+                'statuses'=>Status::pluck('name', 'id'),
                 'drivers'=>$drivers,
                 'fields'=>[['class'=>'col-12', 'classselect'=>'noselecttwo', 'ftype'=>'select', 'name'=>'Driver', 'id'=>'driver', 'placeholder'=>'Assign Driver', 'data'=>$driversData, 'required'=>true]],
             ]);
@@ -433,7 +433,7 @@ class OrderController extends Controller
         //If owner, only from his restorant
         if (auth()->user()->hasRole('owner')) {
             $orders = $orders->where(['restorant_id'=>auth()->user()->restorant->id]);
-            
+
             //Change currency
             ConfChanger::switchCurrency(auth()->user()->restorant);
 
@@ -442,7 +442,7 @@ class OrderController extends Controller
         }
         $orders = $orders->with(['status', 'client', 'restorant', 'table.restoarea'])->get()->toArray();
 
-        
+
 
         $newOrders = [];
         $acceptedOrders = [];
@@ -474,7 +474,7 @@ class OrderController extends Controller
                 'time'=>$order['updated_at'],
                 'client'=>$client,
                 'link'=>'/orders/'.$order['id'],
-                'price'=>money($order['order_price'], config('settings.cashier_currency'), config('settings.do_convertion')).'',
+                'price'=>money($order['order_price'], config('settings.cashier_currency'), true).'',
             ]);
         }
 
@@ -516,7 +516,7 @@ class OrderController extends Controller
         if (auth()->user()->hasRole('owner')) {
             foreach ($items as $key => $item) {
 
-                
+
                 //Box 1 - New Orders
                 //Today orders that are approved by admin ( Needs approvment or rejection )
                 //Box 2 - Accepted
@@ -857,14 +857,14 @@ class OrderController extends Controller
     }
 
     public function success(Request $request)
-    {   
+    {
         $order = Order::findOrFail($request->order);
 
         //If order is not paid - redirect to payment
         if($request->redirectToPayment.""=="1"&&$order->payment_status != 'paid'&&strlen($order->payment_link)>5){
             //Redirect to payment
             return redirect($order->payment_link);
-        } 
+        }
 
         //If we have whatsapp send
         if($request->has('whatsapp')){
@@ -889,7 +889,7 @@ class OrderController extends Controller
             }
         }
 
-        
+
         return view('orders.success', ['order' => $order,'showWhatsApp'=>$showWhatsApp]);
     }
 }

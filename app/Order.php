@@ -55,7 +55,7 @@ class Order extends Model
         return $this->belongsToMany(\App\Status::class, 'order_has_status', 'order_id', 'status_id')->withPivot('user_id', 'created_at', 'comment')->orderBy('order_has_status.id', 'DESC')->limit(1);
     }
 
-    
+
 
     public function getLastStatusAttribute()
     {
@@ -85,7 +85,7 @@ class Order extends Model
         }
 
         return $delivery;
-        
+
     }
 
     public function stakeholders()
@@ -142,7 +142,7 @@ class Order extends Model
         self::deleting(function (self $order) {
             //Delete Order items
             $order->items()->detach();
-            
+
             //Delete Oders statuses
             $order->status()->detach();
 
@@ -171,7 +171,7 @@ class Order extends Model
     }
 
     private function getDriverOrderActions(){
-        $lastStatusAlias=$this->getLastStatusAttribute()[0]->alias; 
+        $lastStatusAlias=$this->getLastStatusAttribute()[0]->alias;
         if(in_array($lastStatusAlias,["assigned_to_driver"])){
             return ["buttons"=>['rejected_by_driver','accepted_by_driver'],'message'=>""];
         }else if(in_array($lastStatusAlias,["prepared"])){
@@ -180,9 +180,9 @@ class Order extends Model
             if($this->payment_status.""=="paid"){
                 $message=__('Order is already payed by the client.');
             }else{
-                $message=__('Order is not paid yet. Client needs to give you')." ".money($this->order_price+$this->delivery_price,config('settings.cashier_currency'), config('settings.do_convertion'))->format();
+                $message=__('Order is not paid yet. Client needs to give you')." ".money($this->order_price+$this->delivery_price,config('settings.cashier_currency'), true)->format();
             }
-            
+
             return ["buttons"=>['delivered'],'message'=>$message];
         }else if(in_array($lastStatusAlias,["accepted_by_driver"])){
             if($this->getIsPreparedAttribute()){
@@ -192,7 +192,7 @@ class Order extends Model
                 //Not yet prepared
                 return ["buttons"=>[],'message'=>"At the moment order is in preparing. No action for you at the moment. Based on desired delivery time, you may head up to the venue."];
             }
-            
+
         }else if(in_array($lastStatusAlias,["rejected_by_driver"])){
             return ["buttons"=>[],'message'=>""];
         }
