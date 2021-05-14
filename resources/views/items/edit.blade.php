@@ -201,7 +201,7 @@
                                         @foreach($item->extras as $extra)
                                             <tr>
                                                 <th scope="row">{{ $extra->name }}</th>
-                                                <td class="budget">@money( $extra->price, config('settings.cashier_currency'),config('settings.do_convertion'))</td>
+                                                <td class="budget">@money( $extra->price, config('settings.cashier_currency'),true)</td>
                                                 @if ($item->has_variants==1)<td class="budget">{{ $extra->extra_for_all_variants?__('All variants'):__('Selected') }}</td>@endif
                                                 <td class="text-right">
                                                     <div class="dropdown">

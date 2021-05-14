@@ -23,11 +23,11 @@
                   </div>
                   <p class="mt-3 mb-0 text-sm">
                     <!--<span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>-->
-                    <span class="h4 mb-0 text-nowrap">{{ __('Earnings').": "}}@money($value['earning'], config('settings.cashier_currency'),config('settings.do_convertion'))</span>
+                    <span class="h4 mb-0 text-nowrap">{{ __('Earnings').": "}}@money($value['earning'], config('settings.cashier_currency'),true)</span>
                   </p>
                 </div>
             </div>
         </div>
-    @endforeach  
+    @endforeach
     </div>
 </div>

@@ -9,14 +9,14 @@
          <h4>{{ $order->restorant->user->name.", ".$order->restorant->user->email }}</h4>
      </div>
      <hr class="my-4" />
- 
+
      @if (config('app.isft'))
          <h6 class="heading-small text-muted mb-4">{{ __('Client Information') }}</h6>
          <div class="pl-lg-4">
              <h3>{{ $order->client->name }}</h3>
              <h4>{{ $order->client->email }}</h4>
              <h4>{{ $order->address?$order->address->address:"" }}</h4>
- 
+
              @if(!empty($order->address->apartment))
                  <h4>{{ __("Apartment number") }}: {{ $order->address->apartment }}</h4>
              @endif
@@ -39,29 +39,29 @@
          @if ($order->table)
              <h6 class="heading-small text-muted mb-4">{{ __('Table Information') }}</h6>
              <div class="pl-lg-4">
-                 
+
                      <h3>{{ __('Table:')." ".$order->table->name }}</h3>
                      @if ($order->table->restoarea)
                          <h4>{{ __('Area:')." ".$order->table->restoarea->name }}</h4>
                      @endif
-                 
-                 
+
+
              </div>
              <hr class="my-4" />
          @endif
      @endif
-     
- 
- 
-     
+
+
+
+
      <h6 class="heading-small text-muted mb-4">{{ __('Order') }}</h6>
-     <?php 
+     <?php
                  $currency=config('settings.cashier_currency');
-                 $convert=config('settings.do_convertion');
+                 $convert=true;
              ?>
      <ul id="order-items">
          @foreach($order->items as $item)
-             <?php 
+             <?php
                  $theItemPrice= ($item->pivot->variant_price?$item->pivot->variant_price:$item->price);
              ?>
              <li><h4>{{ $item->pivot->qty." X ".$item->name }} -  @money($theItemPrice, $currency,$convert)  =  ( @money( $item->pivot->qty*$theItemPrice, $currency,true) )
@@ -79,8 +79,8 @@
                                  @foreach ($item->options as $option)
                                      <th>{{ $option->name }}</th>
                                  @endforeach
- 
- 
+
+
                              </tr>
                          </thead>
                          <tbody class="list">
@@ -92,7 +92,7 @@
                          </tbody>
                      </table>
                  @endif
- 
+
                  @if (strlen($item->pivot->extras)>2)
                      <br /><span>{{ __('Extras') }}</span><br />
                      <ul>
@@ -121,7 +121,7 @@
      @hasrole('admin|driver|owner')
      <h5>{{ __("NET") }}: @money( $order->order_price-$order->vatvalue, $currency ,true)</h5>
      <h5>{{ __("VAT") }}: @money( $order->vatvalue, $currency,$convert)</h5>
- 
+
      @endif
      <h4>{{ __("Sub Total") }}: @money( $order->order_price, $currency,$convert)</h4>
      @if(config('app.isft'))
@@ -154,7 +154,7 @@
         @endforeach
      @endif
 
-     
- 
- 
+
+
+
  </div>

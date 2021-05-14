@@ -65,7 +65,7 @@
                                 <p class="mb-0 text-sm">
                                     <!--<span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
                                     <span class="text-nowrap">Since last month</span>-->
-                                    <span class="h4 mb-0 text-nowrap">{{ __('Earnings').": "}}@money($value['earning'], config('settings.cashier_currency'),config('settings.do_convertion'))</span>
+                                    <span class="h4 mb-0 text-nowrap">{{ __('Earnings').": "}}@money($value['earning'], config('settings.cashier_currency'),true)</span>
                                 </p>
                             </div>
                         </div>

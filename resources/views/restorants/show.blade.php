@@ -102,7 +102,7 @@
                                 @endif
                                 <span class="res_title"><b><a onClick="setCurrentItem({{ $item->id }})" href="javascript:void(0)">{{ $item->name }}</a></b></span><br />
                                 <span class="res_description">{{ $item->short_description}}</span><br />
-                                <span class="res_mimimum">@money($item->price, config('settings.cashier_currency'),config('settings.do_convertion'))</span>
+                                <span class="res_mimimum">@money($item->price, config('settings.cashier_currency'),true)</span>
                             </div>
                         </div>
                     @endforeach
@@ -578,7 +578,7 @@
             $formatedExtras=$item->extras;
 
             foreach ($formatedExtras as &$element) {
-                $element->priceFormated=@money($element->price, config('settings.cashier_currency'),config('settings.do_convertion'))."";
+                $element->priceFormated=@money($element->price, config('settings.cashier_currency'),true)."";
             }
 
             //Now add the variants and optins to the item data
@@ -588,7 +588,7 @@
                 'name'=>$item->name,
                 'id'=>$item->id,
                 'priceNotFormated'=>$item->price,
-                'price'=>@money($item->price, config('settings.cashier_currency'),config('settings.do_convertion'))."",
+                'price'=>@money($item->price, config('settings.cashier_currency'),true)."",
                 'image'=>$item->logom,
                 'extras'=>$formatedExtras,
                 'options'=>$item->options,

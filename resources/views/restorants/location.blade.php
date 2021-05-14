@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="section section-hero section-shaped">
-      
+
     <div class="section features-1">
       <div class="container-fluid">
         <div class="row">
@@ -30,7 +30,7 @@
                             </figure>
                             <span class="res_title"><b><a href="{{ $link }}">{{ $restorant->name}}</a></b></span><br />
                             <span class="res_description">{{ $restorant->description}}</span><br />
-                            <span class="res_mimimum">{{ __('Minimum order') }}: @money($restorant->minimum, config('settings.cashier_currency'),config('settings.do_convertion'))</span>
+                            <span class="res_mimimum">{{ __('Minimum order') }}: @money($restorant->minimum, config('settings.cashier_currency'),true)</span>
 
                         </div>
                     </div>

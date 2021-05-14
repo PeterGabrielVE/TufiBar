@@ -13,17 +13,17 @@
         <th class="table-web" scope="col">{{ __('Net Price + VAT') }}</th>
         <th class="table-web" scope="col">{{ __('VAT') }}</th>
         <th class="table-web" scope="col">{{ __('Net Price') }}</th>
-        
-        
+
+
         <th class="table-web" scope="col">{{ __('Total Price') }}</th>
-        
+
     </tr>
 </thead>
 <tbody>
 @foreach($orders as $order)
 <tr>
     <td>
-        
+
         <a class="btn badge badge-success badge-pill" href="{{ route('orders.show',$order->id )}}">#{{ $order->id }}</a>
     </td>
     @hasrole('admin|driver')
@@ -49,35 +49,35 @@
             <span class="badge badge-primary badge-pill">{{ $order->getExpeditionType() }} | {{ __($order->payment_method) }} </span>
         @endif
     </td>
-    
+
     <td class="table-web">
-        @money( $order->fee_value+$order->static_fee, config('settings.cashier_currency'),config('settings.do_convertion'))
+        @money( $order->fee_value+$order->static_fee, config('settings.cashier_currency'),true)
     </td>
     <td class="table-web">
-        @money( $order->payment_processor_fee, config('settings.cashier_currency'),config('settings.do_convertion'))
+        @money( $order->payment_processor_fee, config('settings.cashier_currency'),true)
     </td>
     <td class="table-web">
-        @money( $order->delivery_price, config('settings.cashier_currency'),config('settings.do_convertion'))
+        @money( $order->delivery_price, config('settings.cashier_currency'),true)
     </td>
     <td class="table-web">
-        @money( $order->order_price-($order->fee_value+$order->static_fee), config('settings.cashier_currency'),config('settings.do_convertion'))
+        @money( $order->order_price-($order->fee_value+$order->static_fee), config('settings.cashier_currency'),true)
     </td>
     <td class="table-web">
-        @money( $order->vatvalue, config('settings.cashier_currency'),config('settings.do_convertion'))
+        @money( $order->vatvalue, config('settings.cashier_currency'),true)
     </td>
     <td class="table-web">
-        @money( $order->order_price-($order->fee_value+$order->static_fee)-$order->vatvalue, config('settings.cashier_currency'),config('settings.do_convertion'))
+        @money( $order->order_price-($order->fee_value+$order->static_fee)-$order->vatvalue, config('settings.cashier_currency'),true)
     </td>
 
-    
-   
+
+
     <td class="table-web">
-        @money( $order->order_price+$order->delivery_price, config('settings.cashier_currency'),config('settings.do_convertion'))
+        @money( $order->order_price+$order->delivery_price, config('settings.cashier_currency'),true)
     </td>
-    
-    
+
+
 </tr>
-   
+
 
 @endforeach
 </tbody>
