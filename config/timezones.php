@@ -17,6 +17,7 @@ return [
                         'America/Mexico_City'=>'(UTC-06:00) Guadalajara',
                         'America/Mexico_City'=>'(UTC-06:00) Mexico City',
                         'America/Monterrey'=>'(UTC-06:00) Monterrey',
+                        'America/Montevideo' => '(GMT-3:00) Montevideo (Uruguay Time)',
                         'Canada/Saskatchewan'=>'(UTC-06:00) Saskatchewan',
                         'America/Bogota'=>'(UTC-05:00) Bogota',
                         'US/Eastern'=>'(UTC-05:00) Eastern Time (US &amp; Canada)',
