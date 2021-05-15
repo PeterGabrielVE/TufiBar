@@ -136,7 +136,7 @@ class FrontEndController extends Controller
                 //Default QR
                 return $this->qrsaasMode();
             }
-            
+
         }
 
         //Multy City mode, and we don't have location atm
@@ -174,7 +174,7 @@ class FrontEndController extends Controller
         }
     }
 
-    
+
 
     /**
      * 3. QR Mode.
@@ -183,7 +183,9 @@ class FrontEndController extends Controller
     {
         if (config('settings.disable_landing')) {
             //With disabled landing
-            return redirect()->route('login');
+            //return redirect()->route('login');
+            $url = "https://cookdigital.pedidosenwhatsapp.com/";
+            return redirect()->away($url);
         } else {
             //Normal, with landing
             $plans = Plans::get()->toArray();
@@ -234,7 +236,7 @@ class FrontEndController extends Controller
                     'image'=>$images[$i],
                 ]);
             }
-           
+
 
             $response = new \Illuminate\Http\Response(view('qrsaas.'.config('settings.qr_landing'), [
                 'col'=>$colCounter[count($plans)],
@@ -283,7 +285,9 @@ class FrontEndController extends Controller
     {
         if (config('settings.disable_landing')) {
             //With disabled landing
-            return redirect()->route('login');
+            //return redirect()->route('login');
+            $url = "https://cookdigital.pedidosenwhatsapp.com/";
+            return redirect()->away($url);
         } else {
             //Normal, with landing
             $plans = Plans::get()->toArray();
@@ -560,7 +564,7 @@ class FrontEndController extends Controller
         //Set config based on restaurant
         config(['app.timezone' => $restorant->getConfig('time_zone',config('app.timezone'))]);
 
-        
+
         if ($restorant->active == 1) {
 
             if(isset($_GET['pay'])){
@@ -595,7 +599,7 @@ class FrontEndController extends Controller
                 }
             }
 
-           
+
             $previousOrders = Cookie::get('orders') ? Cookie::get('orders') : '';
             $previousOrderArray = array_filter(explode(',', $previousOrders));
 
