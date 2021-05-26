@@ -263,9 +263,11 @@ class OrderController extends Controller
             'delivery_method'=> $delivery_method,
             'payment_method'=> $request->paymentType,
             'address_id'=>$request->addressID,
+            'client_name'=>$request->client_name,
             "timeslot"=>$request->timeslot,
             "items"=>$items,
             "comment"=>$request->comment,
+            "client_name"=>$request->client_name,
             "stripe_token"=>$stripe_token,
             "dinein_table_id"=>$table_id,
             "phone"=>$phone,
@@ -847,7 +849,7 @@ class OrderController extends Controller
             $isDelivery = $request->deliveryType == 'delivery';
         }
 
-        $text = $this->generateWhatsappOrder($request->exists('addressID') ? $request->addressID : null, $request->exists('comment') ? $request->comment : null, $orderPrice);
+        $text = $this->generateWhatsappOrder($request->exists('client_name') ? $request->client_name : null,$request->exists('addressID') ? $request->addressID : null, $request->exists('comment') ? $request->comment : null, $orderPrice);
 
         $url = 'https://wa.me/'.$restorant->whatsapp_phone.'?text='.$text;
 

@@ -173,7 +173,8 @@
                                         </div>
                                     @endforeach
                                     <div class="col-lg-3" >
-                                        <a   data-toggle="modal" data-target="#modal-new-item" data-toggle="tooltip" data-placement="top" href="javascript:void(0);" onclick=(setSelectedCategoryId({{ $category->id }}))>
+                                        @if($canAdd)
+                                          <a   data-toggle="modal" data-target="#modal-new-item" data-toggle="tooltip" data-placement="top" href="javascript:void(0);" onclick=(setSelectedCategoryId({{ $category->id }}))>
                                             <div class="card">
 
 
@@ -183,6 +184,17 @@
                                                 </div>
                                             </div>
                                         </a>
+                                        @else
+                                           <a  disabled>
+                                            <div class="card">
+                                                <img class="card-img-top" src="{{ asset('images') }}/default/add_new_item.jpg" alt="...">
+                                                <div class="card-body">
+                                                    <h3 class="card-title text-primary text-uppercase">{{ __('Add item') }}</h3>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        @endif
+
                                         <br />
                                     </div>
                                 </div>

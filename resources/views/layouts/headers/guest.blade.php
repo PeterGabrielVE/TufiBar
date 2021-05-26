@@ -3,11 +3,11 @@
         <div class="header-body text-center mb-1">
             <div class="row justify-content-center">
                 <a class="navbar-brand" href="/">
-                    
-                    <img src="{{ config('global.site_logo') }}" width="300" class="thumbnail" alt="...">
+
+                    <img src="{{ config('global.site_logo') }}" width="300" class="thumbnail mt-4" alt="...">
                 </a>
             </div>
         </div>
     </div>
-    
+
 </div>
