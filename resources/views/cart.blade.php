@@ -50,10 +50,10 @@
                         <!-- Comment -->
                         @include('cart.comment')
 
-                    @else
+                    @elseif(config('app.isqrsaas')&&count($timeSlots)>0)
 
                       <!-- QRSAAS -->
-                      
+
                       <!-- DINE IN OR TAKEAWAY -->
                       @if (config('settings.enable_pickup'))
                           @include('cart.localorder.dineiintakeaway')
@@ -73,8 +73,9 @@
                       @include('cart.customfields')
 
                       <!-- Comment -->
+
                       @include('cart.comment')
-                        
+
 
                     @endif
                 @else
@@ -82,8 +83,8 @@
 
                     @if(count($timeSlots)>0)
                         <!-- Delivery method -->
-                        @include('cart.delivery')
 
+                        @include('cart.delivery')
                         <!-- Delivery time slot -->
                         @include('cart.time')
 
